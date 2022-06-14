@@ -3,103 +3,102 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-  @Id
-  @Basic(optional = false)
-  @NotNull
-  @Column(name = "user_name", length = 25)
-  private String userName;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 255)
-  @Column(name = "user_pass")
-  private String userPass;
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "user_name", length = 25)
+    private String userName;
 
-  @JoinTable(name = "user_roles", joinColumns = {
-    @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-    @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
-  @ManyToMany
-  private List<Role> roleList = new ArrayList<>();
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "user_pass")
+    private String userPass;
 
-  @ManyToMany
-  private List<Boat> boats;
+    @Column(name = "first_name")
+    private String firstName;
 
-  private String address;
+    @OneToOne(mappedBy = "user")
+    private Driver driver;
 
-  private String phone;
+    @JoinTable(name = "user_roles", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
+    @ManyToMany
+    private List<Role> roleList = new ArrayList<>();
 
-  private String name;
 
-
-  public List<String> getRolesAsStrings() {
-    if (roleList.isEmpty()) {
-      return null;
+    public User() {
     }
-    List<String> rolesAsStrings = new ArrayList<>();
-    roleList.forEach((role) -> {
-        rolesAsStrings.add(role.getRoleName());
-      });
-    return rolesAsStrings;
-  }
-
-  public User() {}
-
-  //TODO Change when password is hashed
-   public boolean verifyPassword(String pw){
-     return BCrypt.checkpw(pw, userPass);
+    public User(String userName, String userPass) {
+        this.userName = userName;
+        this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
     }
 
-  public User(String userName, String userPass) {
-    this.userName = userName;
+    public User(String userName, String userPass, String firstName) {
+        this.userName = userName;
+        this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+        this.firstName = firstName;
+    }
 
-    this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
-  }
+    public boolean verifyPassword(String pw) {
+        return BCrypt.checkpw(pw, userPass);
+    }
 
-  public String getName() { return name; }
-  public void setName(String name) { this.name = name; }
-  public List<Boat> getBoats() { return boats; }
-  public void setBoats(List<Boat> boats) { this.boats = boats; }
-  public String getAddress() { return address; }
-  public void setAddress(String address) { this.address = address; }
-  public String getPhone() { return phone; }
-  public void setPhone(String phone) { this.phone = phone; }
-  public String getUserName() {
-    return userName;
-  }
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-  public String getUserPass() {
-    return this.userPass;
-  }
-  public void setUserPass(String userPass) {
-    this.userPass = userPass;
-  }
-  public List<Role> getRoleList() {
-    return roleList;
-  }
-  public void setRoleList(List<Role> roleList) {
-    this.roleList = roleList;
-  }
-  public void addRole(Role userRole) {
-    roleList.add(userRole);
-  }
+    public List<String> getRolesAsStrings() {
+        if (roleList.isEmpty()) {
+            return null;
+        }
+        List<String> rolesAsStrings = new ArrayList<>();
+        roleList.forEach((role) -> {
+            rolesAsStrings.add(role.getRoleName());
+        });
+        return rolesAsStrings;
+    }
+
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public Driver getDriver() { return driver; }
+    public void setDriver(Driver driver) { this.driver = driver; }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getUserPass() {
+        return this.userPass;
+    }
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public void addRole(Role userRole) {
+        roleList.add(userRole);
+    }
 
 }

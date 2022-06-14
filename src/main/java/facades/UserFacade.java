@@ -89,8 +89,8 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class, userDTO.getUsername());
-            user.setUserPass(userDTO.getPassword());
+            User user = em.find(User.class, userDTO.getUserName());
+            user.setUserPass(userDTO.getUserPass());
             em.merge(user);
             em.getTransaction().commit();
             return new UserDTO(user);

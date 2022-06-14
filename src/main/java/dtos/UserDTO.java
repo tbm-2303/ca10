@@ -6,13 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
+    private int id;
+    private String userName;
+    private String firstName;
+    private String userPass;
 
-    private String username;
-    private String password;
-    private String name;
-    private String address;
-    private String phone;
 
+
+
+    public UserDTO(User user) {
+        if (user.getId() != 0)
+            this.id = user.getId();
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+    }
 
     public static List<UserDTO> getDtos(List<User> u){
         List<UserDTO> userDTOSdtos = new ArrayList();
@@ -20,29 +27,21 @@ public class UserDTO {
         return userDTOSdtos;
     }
 
-    public UserDTO(User user) {
-        this.username = user.getUserName();
-        if (user.getPhone() != null){
-            this.phone = user.getPhone();
-        }
-        if (user.getAddress() != null){
-            this.address = user.getAddress();
-        }
-        if (user.getName() != null){
-            this.name = user.getName();
-        }
+    public User getEntity() {
+        User u = new User(this.userName, null, this.firstName);
+
+        return u;
     }
 
+    public int getId() {
+        return id;
+    }
 
-
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public void setId(int id) { this.id = id; }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getUserPass() { return userPass; }
+    public void setUserPass(String userPass) { this.userPass = userPass; }
 }

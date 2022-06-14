@@ -108,35 +108,7 @@ public class DemoResource {
         return "{\"msg\":\"setup all good\"}";
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("randomjoke")
-    public String getRandomJoke() throws IOException {
-        String joke = HttpUtils.fetchData("https://api.chucknorris.io/jokes/random");
-        return "{\"msg\": \"Random Joke: " + joke + "\"}";
-    }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("catfact")
-    public String catFact() throws IOException {
-        String fact = HttpUtils.fetchData("https://catfact.ninja/fact");
-        return "{\"msg\": \"cat fact: " + fact + "\"}";
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("catfactx")
-    public Response test() throws IOException {
-       return Response.ok().entity(GSON.toJson(FACADE.getRandomCatFact())).build();
-    }
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("randomjokex")
-    public Response test2() {
-        return Response.ok().entity(GSON.toJson(FACADE.getRandomJoke())).build();
-    }
-//d
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
