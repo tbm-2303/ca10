@@ -71,7 +71,11 @@ public class User implements Serializable {
         return rolesAsStrings;
     }
 
-
+    public String getRole(){
+        Role role = this.roleList.get(0);
+        String value = role.getRoleName();
+        return value;
+    }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getFirstName() { return firstName; }

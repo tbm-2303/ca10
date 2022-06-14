@@ -55,10 +55,7 @@ public class LoginEndpoint {
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
             List<String> roles = user.getRolesAsStrings();
-            for (int i = 0; i < roles.size(); i++) {
-                String role = "role" + i;
-                responseJson.addProperty(role, roles.get(i));
-            }
+            responseJson.addProperty("role", user.getRole());
             responseJson.addProperty("token", token);
             return Response.ok(new Gson().toJson(responseJson)).build();
 

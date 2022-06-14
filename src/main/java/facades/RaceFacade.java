@@ -32,7 +32,15 @@ public class RaceFacade {
         }
         return instance;
     }
+    //us 1 users can see all available races.
+    public List<Race> getAll() {
+        EntityManager em = getEntityManager();
+        TypedQuery<Race> query = em.createQuery("SELECT r FROM Race r", Race.class);
+        return query.getResultList();
+    }
 
+
+    //us 4 admins can create races.
     public RaceDTO createRace(RaceDTO raceDTO) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -48,6 +56,21 @@ public class RaceFacade {
     }
 
 
+    //us 5 admins can update races.
+
+    //us 6 admins can delete races.
+
+
+
+
+
+
+
+
+
+
+
+
     public Race getById(int id) throws EntityNotFoundException {
         EntityManager em = getEntityManager();
         Race race = em.find(Race.class, id);
@@ -56,11 +79,6 @@ public class RaceFacade {
         return race;
     }
 
-    public List<Race> getAll() {
-        EntityManager em = getEntityManager();
-        TypedQuery<Race> query = em.createQuery("SELECT r FROM Race r", Race.class);
-        return query.getResultList();
-    }
 
 
     public long getCount() {
