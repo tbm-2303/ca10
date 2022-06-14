@@ -20,6 +20,7 @@ public class RaceResource {
 
 
     @GET
+    @Path("getall")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         return Response.ok().entity(GSON.toJson(FACADE.getAll())).build();
