@@ -7,6 +7,7 @@ import dtos.RaceDTO;
 import facades.RaceFacade;
 import utils.EMF_Creator;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,19 @@ public class RaceResource {
 
 
     @GET
+    @Path("populate")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String populatel() {
+        EntityManager em = EMF.createEntityManager();
+        //create some races
+        em.getTransaction().begin();
+        //make relations
+        //persist ->  em.persist(?);
+        em.getTransaction().commit();
+        return "{\"msg\":\"setup all good\"}";
+    }
+
+    @GET
     @Path("getall")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
@@ -27,5 +41,18 @@ public class RaceResource {
     }
 
 
+  
 
+
+    //YES
+    //create spot with location from db
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("create")
+    public String createRace(String race){
+        RaceDTO raceDTO = GSON.fromJson(race, RaceDTO.class);
+        RaceDTO createdRace = FACADE.createRace(raceDTO);
+        return GSON.toJson(createdRace);
+    }
 }
