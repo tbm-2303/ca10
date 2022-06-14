@@ -31,9 +31,14 @@ public class DriverResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllDriversByCarID(@PathParam("id") int id) {
         List<Driver> list = FACADE.getDriversByCarID(id);
+        List<DriverDTO> list1 = new ArrayList<>();
+        for (Driver driver: list) {
+            list1.add(new DriverDTO(driver));
+
+        }
         return Response
                 .ok()
-                .entity(GSON.toJson(list))
+                .entity(GSON.toJson(list1))
                 .build();
     }
 }
