@@ -41,11 +41,6 @@ public class RaceResource {
     }
 
 
-  
-
-
-    //YES
-    //create spot with location from db
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})

@@ -4,6 +4,7 @@ import entities.Car;
 import entities.Race;
 import entities.User;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ public class RaceDTO {
     private int id;
     private String name;
     private String location;
-    private String date;
+    private Timestamp date;
     private int duration;
     private List<CarDTO> carDTOs = new ArrayList<>();
 
@@ -27,13 +28,8 @@ public class RaceDTO {
             this.carDTOs.add(new CarDTO(car));
         }
     }
+//change
 
-    public Race getEntity() {
-        Race race = new Race(this.name, this.location, this.date, this.duration);
-        if (this.carDTOs.size() != 0)
-            this.carDTOs.forEach(carDTO -> race.addCar(carDTO.getEntity()));
-        return race;
-    }
 
     public static List<RaceDTO> getDtos(List<Race> r){
         List<RaceDTO> raceDTOSdtos = new ArrayList();
@@ -47,8 +43,8 @@ public class RaceDTO {
     public void setName(String name) { this.name = name; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public Timestamp getDate() { return date; }
+    public void setDate(Timestamp date) { this.date = date; }
     public int getDuration() { return duration; }
     public void setDuration(int duration) { this.duration = duration; }
     public List<CarDTO> getCarDTOs() { return carDTOs; }

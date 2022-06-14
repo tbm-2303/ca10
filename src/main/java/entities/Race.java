@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Race implements Serializable {
 
     // TODO change to Date class.
     @Column(name = "date")
-    private String date;
+    private Timestamp date;
 
     @Column(name = "duration")
     private int duration;
@@ -37,7 +38,7 @@ public class Race implements Serializable {
     @ManyToMany
     private List<Car> cars = new ArrayList<>();
 
-    public Race(String name, String location, String date, int duration) {
+    public Race(String name, String location, Timestamp date, int duration) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -53,8 +54,8 @@ public class Race implements Serializable {
     public void setName(String name) { this.name = name; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public Timestamp getDate() { return date; }
+    public void setDate(Timestamp date) { this.date = date; }
     public int getDuration() { return duration; }
     public void setDuration(int duration) { this.duration = duration; }
     public List<Car> getCarList() { return cars; }
