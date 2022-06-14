@@ -2,6 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.DriverDTO;
+import entities.Driver;
+import entities.Race;
 import facades.DriverFacade;
 import facades.RaceFacade;
 import utils.EMF_Creator;
@@ -13,6 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Path("driver")
@@ -25,9 +30,10 @@ public class DriverResource {
     @Path("car/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllDriversByCarID(@PathParam("id") int id) {
+        List<Driver> list = FACADE.getDriversByCarID(id);
         return Response
                 .ok()
-                .entity(GSON.toJson(FACADE.getDriversByCarID(id)))
+                .entity(GSON.toJson(list))
                 .build();
     }
 }
