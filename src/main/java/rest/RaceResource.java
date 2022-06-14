@@ -4,6 +4,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.RaceDTO;
+import entities.Race;
 import facades.RaceFacade;
 import utils.EMF_Creator;
 
@@ -12,6 +13,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Path("race")
 public class RaceResource {
@@ -37,7 +42,19 @@ public class RaceResource {
     @Path("getall")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
-        return Response.ok().entity(GSON.toJson(FACADE.getAll())).build();
+        List<Race> list = FACADE.getAll();
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        List<RaceDTO> raceDTOS = new ArrayList<>();
+
+        for (Race race : list) {
+            if (race.getDate().after((Date) ts)){
+                raceDTOS.add(new RaceDTO(race));
+            }
+        }
+        return Response
+                .ok()
+                .entity(GSON.toJson(raceDTOS))
+                .build();
     }
 
 
