@@ -47,6 +47,8 @@ public class UserFacade {
         User user;
         try {
             user = em.find(User.class, username);
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName = '" + username + "'", User.class);
+            user = query.getSingleResult();
             if (user == null || !user.verifyPassword(password)) {
                 throw new AuthenticationException("Invalid user name or password");
             }
