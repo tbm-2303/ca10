@@ -35,7 +35,7 @@ public class Car implements Serializable {
     @Column(name = "color")
     private String color;
 
-    @ManyToMany(mappedBy="carList")
+    @ManyToMany(mappedBy="cars")
     private List<Race> races = new ArrayList<>();
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.PERSIST)

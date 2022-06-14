@@ -29,11 +29,12 @@ public class Race implements Serializable {
     @Column(name = "duration")
     private int duration;
 
-    @ManyToMany
+
     @JoinTable(
             name = "race_car",
             joinColumns = @JoinColumn(name = "race_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id"))
+    @ManyToMany
     private List<Car> cars = new ArrayList<>();
 
     public Race(String name, String location, String date, int duration) {
