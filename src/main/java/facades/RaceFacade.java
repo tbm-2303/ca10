@@ -11,6 +11,7 @@ import javassist.NotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class RaceFacade {
@@ -44,6 +45,8 @@ public class RaceFacade {
     public RaceDTO createRace(RaceDTO raceDTO) {
         EntityManager em = emf.createEntityManager();
         try {
+            //Timestamp ts = Timestamp.valueOf(raceDTO.getDate());
+
             Race race = new Race(raceDTO.getName(), raceDTO.getLocation(), raceDTO.getDate(), raceDTO.getDuration());
             em.getTransaction().begin();
             em.persist(race);

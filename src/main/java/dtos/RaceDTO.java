@@ -44,7 +44,7 @@ public class RaceDTO {
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
     public Timestamp getDate() { return date; }
-    public void setDate(Timestamp date) { this.date = date; }
+    public void setDate(Timestamp  date) { this.date = date; }
     public int getDuration() { return duration; }
     public void setDuration(int duration) { this.duration = duration; }
     public List<CarDTO> getCarDTOs() { return carDTOs; }
