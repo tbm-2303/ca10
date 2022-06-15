@@ -1,5 +1,8 @@
 package rest;
-
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.RaceDTO;
@@ -12,29 +15,21 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.sql.Timestamp;
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class RaceResourceTest {    private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static Race race;
     private static Race race1;
     private static Car car;
+    private static Race race;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -67,7 +62,7 @@ class RaceResourceTest {    private static final int SERVER_PORT = 7777;
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Timestamp ts = Timestamp.valueOf("Dec 22, 2032 12:00:00 PM");
+            Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
             race = new Race("aha", "dasd", ts, 2);
             race1 = new Race("Radd", "dawf", ts, 1);
             car = new Car("dqw", "dqw", "dqw", "2222", "dwq", "rdwq");
@@ -89,7 +84,7 @@ class RaceResourceTest {    private static final int SERVER_PORT = 7777;
 
     @Test
     void create() {
-        Timestamp ts = Timestamp.valueOf("Dec 22, 2032 12:00:00 PM");
+        Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
         race = new Race("aha", "dasd", ts, 2);
         String requestBody = GSON.toJson(new RaceDTO(race));
 
