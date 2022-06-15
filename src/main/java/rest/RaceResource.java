@@ -3,7 +3,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.DriverDTO;
 import dtos.RaceDTO;
+import entities.Driver;
 import entities.Race;
 import facades.RaceFacade;
 import utils.EMF_Creator;
@@ -67,9 +69,14 @@ public class RaceResource {
     @Path("driver/{username}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getRacesByDriverUsername(@PathParam("username") String username) throws  errorhandling.EntityNotFoundException {
+        List<Race> list = FACADE.getRacesAssociatedWithDriver(username);
+        List<RaceDTO> list1 = new ArrayList<>();
+        for (Race race: list) {
+            list1.add(new RaceDTO(race));
+        }
         return Response.
                 ok().
-                entity(GSON.toJson(FACADE.getRacesAssociatedWithDriver(username))).
+                entity(GSON.toJson(list1)).
                 build();
     }
 

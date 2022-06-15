@@ -70,8 +70,7 @@ public class RaceFacade {
         driver = query1.getSingleResult();
         em.close();
         Car car = driver.getCar();
-        List<Race> races = car.getRaces();
-        return races;
+        return car.getRaces();
     }
 
 
