@@ -65,11 +65,11 @@ public class RaceFacade {
             em.getTransaction().begin();
             em.persist(race);
             em.getTransaction().commit();
-            return race;
+
         } finally {
             em.close();
         }
-
+        return Race1;
     }
 
     //us 3 get races associated with a driver.
