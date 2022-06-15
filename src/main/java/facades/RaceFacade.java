@@ -33,6 +33,7 @@ public class RaceFacade {
         }
         return instance;
     }
+
     //us 1 users can see all available races.
     public List<Race> getAll() {
         EntityManager em = getEntityManager();
@@ -46,7 +47,6 @@ public class RaceFacade {
         EntityManager em = emf.createEntityManager();
         try {
             //Timestamp ts = Timestamp.valueOf(raceDTO.getDate());
-
             Race race = new Race(raceDTO.getName(), raceDTO.getLocation(), raceDTO.getDate(), raceDTO.getDuration());
             em.getTransaction().begin();
             em.persist(race);
@@ -58,20 +58,26 @@ public class RaceFacade {
         return raceDTO;
     }
 
+    //us 3 get races associated with a driver.
+    public List<Race> getRacesAssociatedWithDriver(String username) throws EntityNotFoundException {
+        EntityManager em = getEntityManager();
+        User user;
+        Driver driver;
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName = '" + username + "'", User.class);
+        user = query.getSingleResult();
+        int id = user.getId();
+        TypedQuery<Driver> query1 = em.createQuery("SELECT d FROM Driver d WHERE d.user.id = '" + id + "'", Driver.class);
+        driver = query1.getSingleResult();
+        em.close();
+        Car car = driver.getCar();
+        List<Race> races = car.getRaces();
+        return races;
+    }
+
 
     //us 5 admins can update races.
 
     //us 6 admins can delete races.
-
-
-
-
-
-
-
-
-
-
 
 
     public Race getById(int id) throws EntityNotFoundException {
@@ -81,7 +87,6 @@ public class RaceFacade {
             throw new EntityNotFoundException("Race with ID: " + id + " was not found");
         return race;
     }
-
 
 
     public long getCount() {

@@ -10,6 +10,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -59,6 +60,17 @@ public class RaceResource {
                 .ok()
                 .entity(GSON.toJson(raceDTOS))
                 .build();
+    }
+
+    //us 3 get races associated with a driver.
+    @GET
+    @Path("driver/{username}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getRacesByDriverUsername(@PathParam("username") String username) throws  errorhandling.EntityNotFoundException {
+        return Response.
+                ok().
+                entity(GSON.toJson(FACADE.getRacesAssociatedWithDriver(username))).
+                build();
     }
 
     //us 4 admins can create races.
