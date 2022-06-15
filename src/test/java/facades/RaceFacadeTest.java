@@ -27,23 +27,19 @@ class RaceFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
         facade = RaceFacade.getRaceFacade(emf);
-
-
     }
 
-    // Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     @AfterAll
     public static void tearDownClass() {
-        // emf.close();
     }
 
-    // Setup the DataBase in a known state BEFORE EACH TEST
+
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Timestamp ts = Timestamp.valueOf("2032-03-23 1:00:00 AM");
+            Timestamp ts = Timestamp.valueOf("2032-03-23 1:00:00");
             race = new Race("aha", "dasd", ts, 2);
             race2 = new Race("Radd", "dawf", ts, 1);
             car = new Car("dqw", "dqw", "dqw", "2222", "dwq", "rdwq");
@@ -59,16 +55,12 @@ class RaceFacadeTest {
 
     @Test
     void create() {
-        Timestamp ts = Timestamp.valueOf("22 Jan, 2023 1:00:00 AM");
+        Timestamp ts = Timestamp.valueOf("22 Jan, 2023 1:00:00");
         Race expected = new Race("disco fortnite race", "LA", ts, 2);
         Race actual = facade.test(expected);
 
         assertEquals(expected, actual);
     }
 
-    @Test
-    void getCount() {
-        long actual = facade.getCount();
-        assertEquals(35, actual);
-    }
+
 }
