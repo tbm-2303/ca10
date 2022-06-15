@@ -27,6 +27,11 @@ public class RaceResource {
     private static final RaceFacade FACADE = RaceFacade.getRaceFacade(EMF_Creator.createEntityManagerFactory());
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getInfoForAll() {
+        return "{\"msg\":\"Hello anonymous\"}";
+    }
 
     @GET
     @Path("populate")
