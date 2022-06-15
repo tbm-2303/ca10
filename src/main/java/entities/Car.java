@@ -9,6 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "cars")
+@NamedQuery(name = "Car.deleteAllRows", query = "DELETE from Car ")
+
 public class Car implements Serializable {
     private static final long serialVersionUID = 1L;
 

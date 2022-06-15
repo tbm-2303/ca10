@@ -1,9 +1,6 @@
 package facades;
-import dtos.RaceDTO;
 import entities.Car;
 import entities.Race;
-import entities.User;
-import errorhandling.EntityNotFoundException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +36,13 @@ class RaceFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Race.deleteAllRows").executeUpdate();
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+
+
             Timestamp ts = Timestamp.valueOf("2032-03-23 1:00:00");
             race = new Race("aha", "dasd", ts, 2);
             race2 = new Race("Radd", "dawf", ts, 1);

@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "drivers")
+@NamedQuery(name = "Driver.deleteAllRows", query = "DELETE from Driver ")
 public class Driver implements Serializable {
     private static final long serialVersionUID = 1L;
 

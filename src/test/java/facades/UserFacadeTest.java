@@ -2,13 +2,10 @@ package facades;
 
 import entities.Role;
 import entities.User;
-import errorhandling.EntityNotFoundException;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -25,15 +22,11 @@ class UserFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
         facade = UserFacade.getUserFacade(emf);
-
-
-
     }
 
 
     @AfterAll
     public static void tearDownClass() {
-
     }
 
 
@@ -42,6 +35,8 @@ class UserFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Role.deleteAllRows").executeUpdate();
 
             user = new User("d","d","d");
             user1 = new User("ld","d","d");
