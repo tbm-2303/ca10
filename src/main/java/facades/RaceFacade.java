@@ -57,6 +57,20 @@ public class RaceFacade {
         }
         return raceDTO;
     }
+    public Race test(Race Race1) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            //Timestamp ts = Timestamp.valueOf(raceDTO.getDate());
+            Race race = new Race(Race1.getName(), Race1.getLocation(), Race1.getDate(), Race1.getDuration());
+            em.getTransaction().begin();
+            em.persist(race);
+            em.getTransaction().commit();
+            return race;
+        } finally {
+            em.close();
+        }
+
+    }
 
     //us 3 get races associated with a driver.
     public List<Race> getRacesAssociatedWithDriver(String username) throws EntityNotFoundException {
@@ -64,12 +78,13 @@ public class RaceFacade {
 
 
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName = '" + username + "'", User.class);
-       User user = query.getSingleResult();
+        User user = query.getSingleResult();
         int id = user.getId();
         TypedQuery<Driver> query1 = em.createQuery("SELECT d FROM Driver d WHERE d.user.id = '" + id + "'", Driver.class);
-       Driver driver = query1.getSingleResult();
-        em.close();
+        Driver driver = query1.getSingleResult();
+
         Car car = driver.getCar();
+        em.close();
         return car.getRaces();
     }
 
