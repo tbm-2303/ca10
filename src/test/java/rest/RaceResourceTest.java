@@ -62,7 +62,7 @@ class RaceResourceTest {    private static final int SERVER_PORT = 7777;
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
+            Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00");
             race = new Race("aha", "dasd", ts, 2);
             race1 = new Race("Radd", "dawf", ts, 1);
             car = new Car("dqw", "dqw", "dqw", "2222", "dwq", "rdwq");
@@ -84,7 +84,7 @@ class RaceResourceTest {    private static final int SERVER_PORT = 7777;
 
     @Test
     void create() {
-        Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
+        Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00");
         race = new Race("aha", "dasd", ts, 2);
         String requestBody = GSON.toJson(new RaceDTO(race));
 

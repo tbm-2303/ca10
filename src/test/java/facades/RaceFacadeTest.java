@@ -43,7 +43,7 @@ class RaceFacadeTest {
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
 
 
-            Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
+            Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00");
             race = new Race("aha", "dasd", ts, 2);
             race2 = new Race("Radd", "dawf", ts, 1);
             car = new Car("dqw", "dqw", "dqw", "2222", "dwq", "rdwq");
@@ -59,7 +59,7 @@ class RaceFacadeTest {
 
     @Test
     void create() {
-        Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00 AM");
+        Timestamp ts = Timestamp.valueOf("2022-02-03 01:00:00");
         Race expected = new Race("disco fortnite race", "LA", ts, 2);
         Race actual = facade.test(expected);
 
