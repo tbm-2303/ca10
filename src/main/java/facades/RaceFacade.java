@@ -61,13 +61,13 @@ public class RaceFacade {
     //us 3 get races associated with a driver.
     public List<Race> getRacesAssociatedWithDriver(String username) throws EntityNotFoundException {
         EntityManager em = getEntityManager();
-        User user;
-        Driver driver;
+
+
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName = '" + username + "'", User.class);
-        user = query.getSingleResult();
+       User user = query.getSingleResult();
         int id = user.getId();
         TypedQuery<Driver> query1 = em.createQuery("SELECT d FROM Driver d WHERE d.user.id = '" + id + "'", Driver.class);
-        driver = query1.getSingleResult();
+       Driver driver = query1.getSingleResult();
         em.close();
         Car car = driver.getCar();
         return car.getRaces();
