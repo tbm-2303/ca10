@@ -43,7 +43,7 @@ class RaceFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Timestamp ts = Timestamp.valueOf("22 Jan, 2023 1:00:00 AM");
+            Timestamp ts = Timestamp.valueOf("2032-03-23 1:00:00 AM");
             race = new Race("aha", "dasd", ts, 2);
             race2 = new Race("Radd", "dawf", ts, 1);
             car = new Car("dqw", "dqw", "dqw", "2222", "dwq", "rdwq");
